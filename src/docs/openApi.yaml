@@ -1,0 +1,78 @@
+openapi: 3.0.0
+info:
+  title: Test
+  description: Test task in the company 'WomanUP'
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+    description: Development server
+
+paths:
+  /user/registration:
+    post:
+      tags:
+        - User
+      summary: Registration user .
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/registrationUser"
+      responses:
+        200:
+          description: Succes
+        500:
+          description: Server error
+
+  /user/autorization:
+    post:
+      tags:
+        - User
+      summary: Authorization user .
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/authorizationUser"
+      responses:
+        200:
+          description: Succes
+        500:
+          description: Server error
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    registrationUser:
+      type: object
+      properties:
+        uaserName:
+          type: string
+          description: User first name
+          example: Yra
+        email:
+          type: string
+          description: User last name
+          example: Stell
+        password:
+          type: string
+          description: User password
+          example: "21dsa"
+
+    authorizationUser:
+      type: object
+      properties:
+        email:
+          type: string
+          description: User email
+          example: pete7833@examples.com
+        password:
+          type: string
+          description: Password user.
+          example: 21dsa
