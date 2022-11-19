@@ -2,8 +2,8 @@ import { create, authorizationUser } from "./service.js";
 
 export async function registration(req, res) {
   try {
-    const { email, password, uaserName } = req.body;
-    const result = await create(email, password, uaserName);
+    const { email, password, userName } = req.body;
+    const result = await create(email, password, userName);
     res.json(result);
   } catch (e) {
     res.status(500).json(e);

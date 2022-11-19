@@ -1,13 +1,20 @@
 import User from "../models/user.js";
 import { generateJwt, hashPassword, parsePassword } from "./helper.js";
 
-export async function create(email, password, uaserName) {
+export async function create(email, password, userName) {
   const oneUser = await User.findOne({ email });
   if (oneUser) {
     throw { message: "There is already a user with this mail" };
   }
   const resultHash = await hashPassword(password);
-  await User.create({ email, password: resultHash, uaserName });
+
+  const prototype = await User.create({
+    email,
+    password: resultHash,
+    userName,
+  });
+  await prototype.save();
+
   return { message: "User successfully registered" };
 }
 
@@ -21,6 +28,5 @@ export async function authorizationUser(emailUser, password) {
     throw { message: "Wrong password" };
   }
   const token = generateJwt(findUser.id, findUser.email);
-  console.log(findUser.id, findUser.email);
   return { message: "User is authorized", token };
 }
