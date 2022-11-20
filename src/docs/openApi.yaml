@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   title: Test
-  description: Test task in the company 'WomanUP'
+  description: Test task todo-list
   version: 1.0.0
 servers:
   - url: http://localhost:3000
@@ -92,7 +92,32 @@ paths:
         - bearerAuth: []
       tags:
         - Note
-      summary: Get note user.
+      summary: Get all note user.
+      parameters:
+        - name: complited
+          in: query
+          description: Task filter, completed tasks - true, failed tasks - false. The parameter is not mandatory.
+          required: false
+          schema:
+            type: boolean
+            enum:
+              - true
+              - false
+        - name: limit
+          in: query
+          description: You can choose how many entries per page.
+          required: false
+          schema:
+            type: number
+            enum:
+              - 20
+              - 50
+        - name: skip
+          in: query
+          description: Number page page.
+          required: false
+          schema:
+            type: number
       responses:
         200:
           description: Succes

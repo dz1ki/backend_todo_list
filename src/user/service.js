@@ -7,14 +7,12 @@ export async function create(email, password, userName) {
     throw { message: "There is already a user with this mail" };
   }
   const resultHash = await hashPassword(password);
-
   const prototype = await User.create({
     email,
     password: resultHash,
     userName,
   });
   await prototype.save();
-
   return { message: "User successfully registered" };
 }
 

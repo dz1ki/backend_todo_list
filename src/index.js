@@ -5,6 +5,14 @@ import YAML from "yamljs";
 import swaggerUI from "swagger-ui-express";
 import mongoose from "mongoose";
 
+const dbConect = {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  dbName: config.get("db.dbName"),
+  user: config.get("db.user"),
+  pass: config.get("db.password"),
+};
+
 const apiSpec = YAML.load("./src/docs/openApi.yaml");
 const port = config.get("app.port") || 5000;
 const app = express();
@@ -14,13 +22,7 @@ app.use("/", router);
 
 const start = async () => {
   try {
-    await mongoose.connect("mongodb://localhost:27017", {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      dbName: "test",
-      user: "admin",
-      pass: "admin",
-    });
+    await mongoose.connect(config.get("db.path"), dbConect);
     app.listen(port, () => console.log("Server started on port " + port));
   } catch (e) {
     console.log(e);

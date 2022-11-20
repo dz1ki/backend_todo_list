@@ -7,6 +7,6 @@ const NoteSchema = new Schema({
   dueDate: { type: Date, required: true },
   completed: { type: Boolean, required: true, default: false },
   createAd: { type: Date, default: new Date() },
-  user: { type: Schema.Types.ObjectId, ref: "User" },
+  user: { type: Schema.Types.ObjectId, ref: "users" },
 });
-export default mongoose.model("Note", NoteSchema);
+export default mongoose.model("notes", NoteSchema);

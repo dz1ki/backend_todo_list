@@ -1,6 +1,6 @@
 import Note from "../models/note.js";
 import User from "../models/user.js";
-import mongoose from "mongoose";
+import { calcPagination, objectFilter } from "./helper.js";
 
 export async function createNote(task, startDate, dueDate, userId) {
   const note = await Note.create({
@@ -48,7 +48,11 @@ export async function updateOneNote(
   return { message: "Record updated successfully." };
 }
 
-export async function list(userId) {
-  const query = User.find({ _id: userId }).populate("notes");
-  return query;
+export async function list(userId, complited, limitPage, skipPage) {
+  const skipResult = calcPagination(skipPage, limitPage);
+  const objFilterResult = objectFilter(userId, complited);
+  const result = await Note.find(objFilterResult)
+    .skip(skipResult)
+    .limit(limitPage);
+  return result;
 }
