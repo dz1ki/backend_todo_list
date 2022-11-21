@@ -4,6 +4,7 @@ import config from "config";
 import YAML from "yamljs";
 import swaggerUI from "swagger-ui-express";
 import mongoose from "mongoose";
+import OpenApiValidator from "express-openapi-validator";
 
 const dbConect = {
   useNewUrlParser: true,
@@ -18,6 +19,18 @@ const port = config.get("app.port") || 5000;
 const app = express();
 app.use(express.json());
 app.use("/api", swaggerUI.serve, swaggerUI.setup(apiSpec));
+app.use(
+  OpenApiValidator.middleware({
+    apiSpec,
+    validateRequests: true,
+  })
+);
+app.use((err, req, res, next) => {
+  res.status(err.status || 500).json({
+    message: err.message,
+    errors: err.errors,
+  });
+});
 app.use("/", router);
 
 const start = async () => {
