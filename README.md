@@ -21,7 +21,7 @@ Functional:
 $ docker-compose up
 
 # Start the server.
-$ mpm run start
+$ npm run start
 
 
 ```
