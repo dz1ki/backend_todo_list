@@ -1,0 +1,12 @@
+{
+  "app": {
+    "port": "3000"
+  },
+
+  "db": {
+    "path": "mongodb://localhost:27017",
+    "dbName": "test",
+    "user": "admin",
+    "password": ""
+  }
+}
