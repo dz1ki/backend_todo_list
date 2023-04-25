@@ -1,6 +1,6 @@
 ## Description
 
-todo-list API.
+todo-list.
 
 Docker is used to organize work with MongoDB. For client-server communication via HTTP, the Express framework is used. Mongoose is used to communicate with MongoDB. Bcrypt is used for hashing passwords. To generate JWT tokens.  
 Functional:
